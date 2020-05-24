@@ -59,7 +59,11 @@ class Calculator:
 
 	def click(self, val, write):
 		if write == None:
-			if val == '=' and self.equation:
+			txt = self.screen.get('1.0', END)
+			if len(txt) < 4:
+				self.clear_screen()
+
+			elif val == '=' and self.equation:
 				self.equation = re.sub(u"\u00F7", '/', self.equation)
 				print(self.equation)
 
@@ -70,8 +74,7 @@ class Calculator:
 
 			elif val == u'\u232B':
 				self.clear_screen()
-			elif val == '=':
-				self.clear_screen()
+
 
 		else:
 			self.insert_screen(val)
