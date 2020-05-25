@@ -53,43 +53,43 @@ class Calculator:
 
         #Arrange the last button at the right corner
         buttons[16].grid(row = 5, column = 0, columnspan = 4)
-    #Button Function: createButton
-    def createButton(self, val, write = True, width = 7):
-            return Button(self.master, text = val, style = 'W.TButton', command = lambda: self.click(val, write), width = width)
-    
-    def click(self, val, write):
-        if write == None:
-            txt = self.screen.get('1.0', END)
-            if len(txt) < 4:
-                self.clear_screen()
+        
+#Button Function: createButton
+def createButton(self, val, write = True, width = 7):
+        return Button(self.master, text = val, style = 'W.TButton', command = lambda: self.click(val, write), width = width)
 
-            elif val == '=' and self.equation:
-                self.equation = re.sub(u"\u00F7", '/', self.equation)
-                print(self.equation)
+def click(self, val, write):
+    if write == None:
+        txt = self.screen.get('1.0', END)
+        if len(txt) < 4:
+            self.clear_screen()
+        #Calculate the result
+        elif val == '=' and self.equation:
+            self.equation = re.sub(u"\u00F7", '/', self.equation)
+            print(self.equation)
 
-                answer = str(eval(self.equation))
-                self.clear_screen()
-                self.insert_screen(answer, newline = True)
+            answer = str(eval(self.equation))
+            self.clear_screen()
+            self.insert_screen(answer, newline = True)
+
+        #Clear the Screen    
+        elif val == u'\u232B':
+            self.clear_screen()
+
+    else:
+        self.insert_screen(val)
+
+def insert_screen(self, val, newline = False):
+    self.screen.configure(state = 'normal')
+    self.screen.insert(END, val)
+    self.equation += str(val)
+    self.screen.configure(state = 'disabled')
 
 
-            elif val == u'\u232B':
-                self.clear_screen()
-
-
-        else:
-            self.insert_screen(val)
-
-    def insert_screen(self, val, newline = False):
-        self.screen.configure(state = 'normal')
-        self.screen.insert(END, val)
-        self.equation += str(val)
-        self.screen.configure(state = 'disabled')
-
-
-    def clear_screen(self):
-        self.equation = ''
-        self.screen.configure(state = 'normal')
-        self.screen.delete('1.0', END)
+def clear_screen(self):
+    self.equation = ''
+    self.screen.configure(state = 'normal')
+    self.screen.delete('1.0', END)
 
 
 root = Tk()
