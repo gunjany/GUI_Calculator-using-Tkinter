@@ -38,7 +38,7 @@ for row in range(3, 0, -1):
         count += 1
 
 
-b4 = Button(root, text = u'\u232B', style = "W.TButton", command = clear, width = 7)
+b4 = Button(root, text = u'\u232B', command = lambda: clear(), width = 7)
 b4.grid(row = 1, column = 3)
 b1 = Button(root, text = div, command = lambda: basic_val(div), width = 7)
 b1.grid(row = 2, column = 3)
@@ -52,28 +52,28 @@ b7 = Button(root, text = '.', command = lambda: click('.'), width = 7)
 b7.grid(row = 4, column = 0)
 b8 = Button(root, text = '0', command = lambda: click(0), width = 7)
 b8.grid(row = 4, column = 1)
-b9 = Button(root, text = '=', command = equal, width = 30)
+b9 = Button(root, text = '=', command = lambda: equal(), width = 30)
 b9.grid(row = 6, column = 0, columnspan = 5)
 
-b_sqrt = Button(root, text = u'\u221A', command = sqrt_val, width = 7)
+b_sqrt = Button(root, text = u'\u221A', command = lambda: sqrt_val(), width = 7)
 b_sqrt.grid(row = 1, column = 4)
-b_log = Button(root, text = 'log2', command = log2_val, width = 7)
+b_log = Button(root, text = 'log2', command = lambda: log2_val(), width = 7)
 b_log.grid(row = 2, column = 4)
-b_log10 = Button(root, text = 'log10', command = log10_val, width = 7)
+b_log10 = Button(root, text = 'log10', command = lambda: log10_val(), width = 7)
 b_log10.grid(row = 3, column = 4)
-b_rev = Button(root, text = '1/x', command = reverse, width = 7)
+b_rev = Button(root, text = '1/x', command = lambda: reverse(), width = 7)
 b_rev.grid(row = 4, column = 4)
 
-b_sin = Button(root, text = 'sin', command = sin_val, width = 7)
+b_sin = Button(root, text = 'sin', command = lambda: sin_val(), width = 7)
 b_sin.grid(row = 5, column = 0)
-b_cos = Button(root, text = 'cos', command = cos_val, width = 7)
+b_cos = Button(root, text = 'cos', command = lambda: cos_val(), width = 7)
 b_cos.grid(row = 5, column = 1)
-b_tan = Button(root, text = 'tan', command = tan_val, width = 7)
+b_tan = Button(root, text = 'tan', command = lambda: tan_val(), width = 7)
 b_tan.grid(row = 5, column = 2)
-b_exp = Button(root, text = 'exp', command = exp_val, width = 7)
-b_exp.grid(row = 5, column = 3)
+b_exp = Button(root, text = 'exp', command = lambda: exp_val(), width = 7)
+b_exp.grid(row = 5, column = 4)
 
-b_power = Button(root, text = '^', command = power_val, width = 7)
+b_power = Button(root, text = '^', command = lambda: power_val(), width = 7)
 b_power.grid(row = 5, column = 3)
 
 def click(val):
@@ -104,7 +104,7 @@ def equal():
         screen.delete('1.0', END)
         screen.insert(END, add)
     
-    if type_ == 'power':
+    elif type_ == 'power':
         print("Power")
         num = screen.get('1.0', END)
         num = num.split('^')
@@ -114,7 +114,47 @@ def equal():
         screen.configure(state = 'normal')
         screen.delete('1.0', END)
         screen.insert(END, power)
+
+    elif type_ == 'sine':
+        f = screen.get('1.4', END)
+        f = f.split('\n')
+        print("NUm: ", f[0])
+        num = float(f[0])
+        ans = str(round(math.sin(num*(math.pi/180)), 2))
+        screen.configure(state = 'normal')
+        screen.delete('1.0', END)
+        screen.insert(END, ans)
         
+    elif type_ == "cosine":
+        f = screen.get('1.4', END)
+        f = f.split('\n')
+        print("NUm: ", f[0])
+        num = float(f[0])
+        ans = str(round(math.cos(num * (math.pi/180)), 2))
+        screen.configure(state = 'normal')
+        screen.delete('1.0', END)
+        screen.insert(END, ans)
+        
+    elif type_ == "tan_of_x":
+        f = screen.get('1.4', END)
+        f = f.split('\n')
+        print("NUm: ", f[0])
+        num = float(f[0])
+        ans = str(round(math.tan(num * (math.pi/180)), 2))
+        screen.configure(state = 'normal')
+        screen.delete('1.0', END)
+        screen.insert(END, ans)
+        
+    elif type_ == 'exponent':
+        f = screen.get('1.4', END)
+        f = f.split('\n')
+        print("NUm: ", f[0])
+        num = float(f[0])
+        ans = str(math.exp(num))
+        screen.configure(state = 'normal')
+        screen.delete('1.0', END)
+        screen.insert(END, ans)
+
     else:
         screen.delete('1.0', END)
         
@@ -174,52 +214,28 @@ def reverse():
     screen.insert(END, rev)
     
 def sin_val():
+    click('sin ')
     global type_
     type_ = "sine"
-    f = screen.get('1.0', END)
-    f = f.split('\n')
-    print("NUm: ", f[0])
-    num = float(f[0])
-    ans = str(math.sin(num))
-    screen.configure(state = 'normal')
-    screen.delete('1.0', END)
-    screen.insert(END, ans)
+
     
 def cos_val():
+    click('cos ')
     global type_
     type_ = "cosine"
-    f = screen.get('1.0', END)
-    f = f.split('\n')
-    print("NUm: ", f[0])
-    num = float(f[0])
-    ans = str(math.cos(num))
-    screen.configure(state = 'normal')
-    screen.delete('1.0', END)
-    screen.insert(END, ans)
+
     
 def tan_val():
+    click('tan ')
     global type_
     type_ = "tan_of_x"
-    f = screen.get('1.0', END)
-    f = f.split('\n')
-    print("NUm: ", f[0])
-    num = float(f[0])
-    ans = str(math.tan(num))
-    screen.configure(state = 'normal')
-    screen.delete('1.0', END)
-    screen.insert(END, ans)
+
     
 def exp_val():
+    click('exp ')
     global type_
     type_ = "exponent"
-    f = screen.get('1.0', END)
-    f = f.split('\n')
-    print("NUm: ", f[0])
-    num = float(f[0])
-    ans = str(math.exp(num))
-    screen.configure(state = 'normal')
-    screen.delete('1.0', END)
-    screen.insert(END, ans)
+
     
 def power_val():
     click("^")
