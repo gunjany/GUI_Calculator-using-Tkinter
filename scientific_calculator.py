@@ -4,9 +4,10 @@ import math
 import re
 
 root = Tk()
-root.title("Test")
+root.title("Scientific Calculator")
+root.geometry('340x360')
 screen = Text(root, state = 'disabled', width = 40, height = 3, background = 'black', foreground = 'yellow')
-screen.grid(row = 0, column = 0, columnspan = 5, padx = 5, pady = 5)
+screen.grid(row = 0, column = 0, columnspan = 8, padx = 5, pady = 5)
 
 mul = '*'
 add = '+'
@@ -18,7 +19,7 @@ type_ = ''
 eq = ''
 
 style = Style()
-style.configure('W.TButton', font = ('sans-serif', 10,  'bold'), foreground = 'black')
+style.configure('W.TButton', font = ('sans-serif', 10,  'bold'), foreground = 'blue')
 
 
 b1 = Button(root, text = 1, command = lambda: click(1), width = 7)
@@ -34,47 +35,47 @@ b9 = Button(root, text = 9, command = lambda: click(9), width = 7)
 buttons= [b1, b2, b3, b4, b5, b6, b7, b8, b9]
 for row in range(3, 0, -1):
     for col in range(3):
-        buttons[count].grid(row = row, column = col)
+        buttons[count].grid(row = row, column = col, padx = 3, pady = 3)
         count += 1
 
 
-b4 = Button(root, text = u'\u232B', command = lambda: clear(), width = 7)
-b4.grid(row = 1, column = 3)
+b4 = Button(root, text = u'\u232B', style = 'W.TButton', command = lambda: clear(), width = 7)
+b4.grid(row = 1, column = 3, padx = 3, pady = 3)
 b1 = Button(root, text = div, command = lambda: basic_val(div), width = 7)
-b1.grid(row = 2, column = 3)
+b1.grid(row = 2, column = 3, padx = 3, pady = 3)
 b3 = Button(root, text = mul, command = lambda: basic_val(mul), width = 7)
-b3.grid(row = 3, column = 3)
+b3.grid(row = 3, column = 3, padx = 3, pady = 3)
 b5 = Button(root, text = sub, command = lambda: basic_val(sub), width = 7)
-b5.grid(row = 4, column = 3)
+b5.grid(row = 4, column = 3, padx = 3, pady = 3)
 b6 = Button(root, text = add, command = lambda: basic_val(add), width = 7)
-b6.grid(row = 4, column = 2)
+b6.grid(row = 4, column = 2, padx = 3, pady = 3)
 b7 = Button(root, text = '.', command = lambda: click('.'), width = 7)
-b7.grid(row = 4, column = 0)
+b7.grid(row = 4, column = 0, padx = 3, pady = 3)
 b8 = Button(root, text = '0', command = lambda: click(0), width = 7)
-b8.grid(row = 4, column = 1)
+b8.grid(row = 4, column = 1, padx = 3, pady = 3)
 b9 = Button(root, text = '=', command = lambda: equal(), width = 30)
-b9.grid(row = 6, column = 0, columnspan = 5)
+b9.grid(row = 6, column = 0, padx = 3, pady = 3, columnspan = 5)
 
 b_sqrt = Button(root, text = u'\u221A', command = lambda: sqrt_val(), width = 7)
-b_sqrt.grid(row = 1, column = 4)
+b_sqrt.grid(row = 1, column = 4, padx = 3, pady = 3)
 b_log = Button(root, text = 'log2', command = lambda: log2_val(), width = 7)
-b_log.grid(row = 2, column = 4)
+b_log.grid(row = 2, column = 4, padx = 3, pady = 3)
 b_log10 = Button(root, text = 'log10', command = lambda: log10_val(), width = 7)
-b_log10.grid(row = 3, column = 4)
+b_log10.grid(row = 3, column = 4, padx = 3, pady = 3)
 b_rev = Button(root, text = '1/x', command = lambda: reverse(), width = 7)
-b_rev.grid(row = 4, column = 4)
+b_rev.grid(row = 4, column = 4, padx = 3, pady = 3)
 
 b_sin = Button(root, text = 'sin', command = lambda: sin_val(), width = 7)
-b_sin.grid(row = 5, column = 0)
+b_sin.grid(row = 5, column = 0, padx = 3, pady = 3)
 b_cos = Button(root, text = 'cos', command = lambda: cos_val(), width = 7)
-b_cos.grid(row = 5, column = 1)
+b_cos.grid(row = 5, column = 1, padx = 3, pady = 3)
 b_tan = Button(root, text = 'tan', command = lambda: tan_val(), width = 7)
-b_tan.grid(row = 5, column = 2)
-b_exp = Button(root, text = 'exp', command = lambda: exp_val(), width = 7)
-b_exp.grid(row = 5, column = 4)
+b_tan.grid(row = 5, column = 2, padx = 3, pady = 3)
+b_exp = Button(root, text = u'\u1D48' + u'\u00B0',style = 'W.TButton', command = lambda: exp_val(), width = 7)
+b_exp.grid(row = 5, column = 4, padx = 3, pady = 3)
 
 b_power = Button(root, text = '^', command = lambda: power_val(), width = 7)
-b_power.grid(row = 5, column = 3)
+b_power.grid(row = 5, column = 3, padx = 3, pady = 3)
 
 def click(val):
     screen.configure(state = 'normal')
