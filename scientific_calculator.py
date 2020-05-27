@@ -64,6 +64,8 @@ b_log10 = Button(root, text = 'log10', command = lambda: log10_val(), width = 7)
 b_log10.grid(row = 3, column = 4, padx = 3, pady = 3)
 b_rev = Button(root, text = '1/x', command = lambda: reverse(), width = 7)
 b_rev.grid(row = 4, column = 4, padx = 3, pady = 3)
+b_mod = Button(root, text = '%', command = lambda: mod_val(), width = 7)
+b_mod.grid(row = 6, column = 3, padx = 3, pady = 3)
 
 b_sin = Button(root, text = 'sin', command = lambda: sin_val(), width = 7)
 b_sin.grid(row = 5, column = 0, padx = 3, pady = 3)
@@ -313,5 +315,10 @@ def tan_inverse_val():
     click('tanh ')
     global type_
     type_ = 'tan_inverse'
+    
+def mod_val():
+    click('%')
+    global type_
+    type_ = 'basic'
     
 root.mainloop()
