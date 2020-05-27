@@ -5,7 +5,7 @@ import re
 
 root = Tk()
 root.title("Scientific Calculator")
-root.geometry('340x360')
+root.geometry('340x260')
 screen = Text(root, state = 'disabled', width = 40, height = 3, background = 'black', foreground = 'yellow')
 screen.grid(row = 0, column = 0, columnspan = 8, padx = 5, pady = 5)
 
@@ -19,7 +19,7 @@ type_ = ''
 eq = ''
 
 style = Style()
-style.configure('W.TButton', font = ('sans-serif', 10,  'bold'), foreground = 'blue')
+style.configure('W.TButton', font = ('arial', 10,  'bold'), foreground = 'blue')
 
 
 b1 = Button(root, text = 1, command = lambda: click(1), width = 7)
@@ -54,11 +54,11 @@ b7.grid(row = 4, column = 0, padx = 3, pady = 3)
 b8 = Button(root, text = '0', command = lambda: click(0), width = 7)
 b8.grid(row = 4, column = 1, padx = 3, pady = 3)
 b9 = Button(root, text = '=', command = lambda: equal(), width = 30)
-b9.grid(row = 6, column = 0, padx = 3, pady = 3, columnspan = 5)
+b9.grid(row = 7, column = 0, padx = 3, pady = 3, columnspan = 5)
 
 b_sqrt = Button(root, text = u'\u221A', command = lambda: sqrt_val(), width = 7)
 b_sqrt.grid(row = 1, column = 4, padx = 3, pady = 3)
-b_log = Button(root, text = 'log2', command = lambda: log2_val(), width = 7)
+b_log = Button(root, text = 'log' + u'\u2082', command = lambda: log2_val(), width = 7)
 b_log.grid(row = 2, column = 4, padx = 3, pady = 3)
 b_log10 = Button(root, text = 'log10', command = lambda: log10_val(), width = 7)
 b_log10.grid(row = 3, column = 4, padx = 3, pady = 3)
@@ -71,7 +71,15 @@ b_cos = Button(root, text = 'cos', command = lambda: cos_val(), width = 7)
 b_cos.grid(row = 5, column = 1, padx = 3, pady = 3)
 b_tan = Button(root, text = 'tan', command = lambda: tan_val(), width = 7)
 b_tan.grid(row = 5, column = 2, padx = 3, pady = 3)
-b_exp = Button(root, text = u'\u1D48' + u'\u00B0',style = 'W.TButton', command = lambda: exp_val(), width = 7)
+
+b_sin_inverse = Button(root, text = 'sinh', command = lambda: sin_inverse_val(), width = 7)
+b_sin_inverse.grid(row = 6, column = 0, padx = 3, pady = 3)
+b_cos_inverse = Button(root, text = 'cosh', command = lambda: cos_inverse_val(), width = 7)
+b_cos_inverse.grid(row = 6, column = 1, padx = 3, pady = 3)
+b_tan_inverse = Button(root, text = 'tanh', command = lambda: tan_inverse_val(), width = 7)
+b_tan_inverse.grid(row = 6, column = 2, padx = 3, pady = 3)
+
+b_exp = Button(root, text = u'\u0065',style = 'W.TButton', command = lambda: exp_val(), width = 7)
 b_exp.grid(row = 5, column = 4, padx = 3, pady = 3)
 
 b_power = Button(root, text = '^', command = lambda: power_val(), width = 7)
@@ -149,12 +157,75 @@ def equal():
     elif type_ == 'exponent':
         f = screen.get('1.4', END)
         f = f.split('\n')
+        print("NUm: ", (f[0]))
+        if len(f[0]) == 0:
+            ans = str(math.e)
+            screen.configure(state = 'normal')
+            screen.delete('1.0', END)
+            screen.insert(END, ans)
+            print(ans)
+            
+        else:
+            num = float(f[0])
+            ans = str(math.exp(num))
+            screen.configure(state = 'normal')
+            screen.delete('1.0', END)
+            screen.insert(END, ans)
+        
+    elif type_ == 'log_base_2':
+        f = screen.get('1.4', END)
+        f = f.split('\n')
         print("NUm: ", f[0])
         num = float(f[0])
-        ans = str(math.exp(num))
+        log = str(math.log2(num))
+        print(log)
+        screen.configure(state = 'normal')
+        screen.delete('1.0', END)
+        screen.insert(END, log)
+        
+    elif type_ == 'log_base_10':
+        f = screen.get('1.4', END)
+        f = f.split('\n')
+        print("NUm: ", f[0])
+        num = float(f[0])
+        log = str(math.log10(num))
+        screen.configure(state = 'normal')
+        screen.delete('1.0', END)
+        screen.insert(END, log)
+        
+    elif type_ == 'sin_inverse':
+        f = screen.get('1.5', END)
+        f = f.split('\n')
+        print("NUm: ", f[0])
+        num = float(f[0]) 
+        print(num)
+        ans = str(round(math.asin(num)* 180/math.pi, 2))
         screen.configure(state = 'normal')
         screen.delete('1.0', END)
         screen.insert(END, ans)
+        
+    elif type_ == 'cos_inverse':
+        f = screen.get('1.5', END)
+        f = f.split('\n')
+        print("NUm: ", f[0])
+        num = float(f[0]) 
+        print(num)
+        ans = str(round(math.acos(num)* 180/math.pi, 2))
+        screen.configure(state = 'normal')
+        screen.delete('1.0', END)
+        screen.insert(END, ans)
+        
+    elif type_ == 'tan_inverse':
+        f = screen.get('1.5', END)
+        f = f.split('\n')
+        print("NUm: ", f[0])
+        num = float(f[0]) 
+        print(num)
+        ans = str(round(math.atan(num)* 180/math.pi, 2))
+        screen.configure(state = 'normal')
+        screen.delete('1.0', END)
+        screen.insert(END, ans)
+
 
     else:
         screen.delete('1.0', END)
@@ -177,30 +248,15 @@ def sqrt_val():
     screen.insert(END, sqrt)
     
 def log2_val():
-    #click(u'\u221A')
+    click('log ')
     global type_
     type_ = "log_base_2"
-    f = screen.get('1.0', END)
-    f = f.split('\n')
-    print("NUm: ", f[0])
-    num = float(f[0])
-    log = str(math.log2(num))
-    screen.configure(state = 'normal')
-    screen.delete('1.0', END)
-    screen.insert(END, log)
+
     
 def log10_val():
-    #click(u'\u221A')
+    click(u'\u221A')
     global type_
-    type_ = "log_base_2"
-    f = screen.get('1.0', END)
-    f = f.split('\n')
-    print("NUm: ", f[0])
-    num = float(f[0])
-    log = str(math.log10(num))
-    screen.configure(state = 'normal')
-    screen.delete('1.0', END)
-    screen.insert(END, log)
+    type_ = "log_base_10"
 
 def reverse():
     global type_
@@ -243,6 +299,19 @@ def power_val():
     global type_
     type_ = "power"
 
+def sin_inverse_val():
+    click('sinh ')
+    global type_
+    type_ = 'sin_inverse'
+
+def cos_inverse_val():
+    click('cosh ')
+    global type_
+    type_ = 'cos_inverse'
     
+def tan_inverse_val():
+    click('tanh ')
+    global type_
+    type_ = 'tan_inverse'
     
 root.mainloop()
